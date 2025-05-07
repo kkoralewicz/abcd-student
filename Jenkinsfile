@@ -16,9 +16,6 @@ pipeline {
             steps {
                 echo 'Hello!'
                 sh 'ls -la'
-                echo "${pwd}"
-                echo "${WORKSPACE}"
-                sh 'ls -l ${WORKSPACE}/.zap/'
             }
         }
 
