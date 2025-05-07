@@ -18,6 +18,7 @@ pipeline {
                 sh 'ls -la'
                 echo "${pwd}"
                 echo "${WORKSPACE}"
+                sh 'ls -l ${WORKSPACE}/.zap/'
             }
         }
 
@@ -33,7 +34,7 @@ pipeline {
                 sh '''
                     docker run --name zap \
                         --add-host=host.docker.internal:host-gateway \
-                        -v ${pwd}/.zap/passive.yaml:/zap/wrk/:rw \
+                        -v ${WORKSPACE}/.zap/passive.yaml:/zap/wrk/:rw \
                         -t ghcr.io/zaproxy/zaproxy:stable bash -c \
                         "zap.sh -cmd -addonupdate; zap.sh -cmd -addoninstall communityScripts -addoninstall pscanrulesAlpha -addoninstall pscanrulesBeta -autorun /zap/wrk/passive.yaml" \
                         || true
