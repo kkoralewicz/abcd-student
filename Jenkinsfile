@@ -31,9 +31,9 @@ pipeline {
                 sh '''
                     docker run --name zap \
                         --add-host=host.docker.internal:host-gateway \
-                        --mount type=bind,source=${WORKSPACE}/.zap/passive.yaml,target=/zap/wrk/passive.yaml,readonly \
+                        -v ${WORKSPACE}/.zap:/zap/wrk/:rw
                         -t ghcr.io/zaproxy/zaproxy:stable bash -c \
-                        "ls -l /zap/wrk/ ; zap.sh -cmd -addonupdate; zap.sh -cmd -addoninstall communityScripts -addoninstall pscanrulesAlpha -addoninstall pscanrulesBeta -autorun /zap/wrk/passive.yaml" \
+                        "ls -l /zap/wrk/ ; zap.sh -cmd -addonupdate; zap.sh -cmd -addoninstall communityScripts -addoninstall pscanrulesAlpha -addoninstall pscanrulesBeta -autorun /zap/wrk/passive_scan.yaml" \
                         || true
                 '''
             }
