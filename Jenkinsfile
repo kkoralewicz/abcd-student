@@ -20,7 +20,8 @@ pipeline {
             }
         }
 
-        stage('[ZAP] Baseline passive-scan') {
+        // ZAD 1
+        /*stage('[ZAP] Baseline passive-scan') {
             steps {
                 sh 'mkdir -p results/'
                 sh '''
@@ -47,6 +48,19 @@ pipeline {
                         docker rm zap
                     '''
                 }
+            }
+            } */
+
+        
+        // ZAD 2
+        stage('[OSV-SCANNER] Baseline scan') {
+            steps {
+                sh '''
+                    docker run --name osv-scanner \
+                        -v ${WORKSPACE}:/workspace osv-scanner \
+                        --json ${WORKSPACE}/package.json
+                        || true
+                '''
             }
             }
         }
