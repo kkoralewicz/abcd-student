@@ -16,7 +16,7 @@ pipeline {
             steps {
                 echo 'Hello!'
                 sh 'ls -la'
-                sh 'ls -l ${WORKSPACE}/.zap'
+                sh 'ls -l ${WORKSPACE}'
             }
         }
 
