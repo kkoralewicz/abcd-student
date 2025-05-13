@@ -59,8 +59,7 @@ pipeline {
                     docker run --rm \
                     --name osv-scanner \
                     -v ${WORKSPACE}:/workspace:rw \
-                    -t ghcr.io/google/osv-scanner bash -c \
-                    "pwd ; ls -la"
+                    -t ghcr.io/google/osv-scanner scan --lockfile /workspace/package-lock.json \
                         || true
                 '''
             }
