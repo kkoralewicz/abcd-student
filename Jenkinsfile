@@ -43,7 +43,6 @@ pipeline {
                 always {
                     sh '''
                         docker cp zap:/zap/zap_html_report.html ${WORKSPACE}/results/zap_html_report.html
-                        docker cp zap:/zap/zap_xml_report.xml ${WORKSPACE}/results/zap_xml_report.xml
                         docker stop zap juice-shop
                         docker rm zap
                     '''
@@ -56,11 +55,20 @@ pipeline {
         stage('[OSV-SCANNER] Baseline scan') {
             steps {
                 sh '''
-                    docker run \
+                    docker run --name osv-scanner \
                     -v /root/ABCD-kk/abcd-student:/workspace:rw \
                     -t ghcr.io/google/osv-scanner scan --lockfile /workspace/package-lock.json \
-                        || true
+                    --output /workspace/osv-scan-report.html || true
                 '''
+            }
+            post {
+                always {
+                    sh '''
+                        docker cp osv-scanner:/workspace/osv-scan-report.html /root/osv-scan-report.html
+                        docker stop osv-scanner
+                        docker rm osv-scanner
+                    '''
+                }
             }
             }
         }
