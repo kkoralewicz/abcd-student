@@ -57,7 +57,7 @@ pipeline {
             steps {
                 sh '''
                     docker run --name osv-scanner \
-                        -v ${WORKSPACE}:/workspace osv-scanner \
+                        -v ${WORKSPACE}:/workspace:rw \
                         "ls -l /workspace ; osv-scanner scan --lockfile package-lock.json"
                         || true
                 '''
