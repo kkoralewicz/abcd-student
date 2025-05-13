@@ -60,8 +60,9 @@ pipeline {
                     -t ghcr.io/google/osv-scanner scan --lockfile /workspace/package-lock.json \
                     --output /workspace/osv-scan-report.html || true
                 '''
+                sh 'docker cp osv-scanner:/workspace/osv-scan-report.html /root/osv-scan-report.html'
             }
-            post {
+            /*post {
                 always {
                     sh '''
                         docker cp osv-scanner:/workspace/osv-scan-report.html /root/osv-scan-report.html
@@ -69,7 +70,7 @@ pipeline {
                         docker rm osv-scanner
                     '''
                 }
-            }
+            }*/
             }
         }
 }
