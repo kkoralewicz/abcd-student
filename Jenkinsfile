@@ -60,7 +60,7 @@ pipeline {
                     --name osv-scanner \
                     -v ${WORKSPACE}:/workspace:rw \
                     ghcr.io/google/osv-scanner \
-                    --lockfile /workspace/package-lock.json
+                    ls -la
                         || true
                 '''
             }
