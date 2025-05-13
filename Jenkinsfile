@@ -15,8 +15,8 @@ pipeline {
         stage('Example') {
             steps {
                 echo 'Hello!'
-                sh 'ls -la'
                 sh 'ls -l ${WORKSPACE}'
+                sh 'ls -l ${WORKSPACE}/package-lock.json'
             }
         }
 
