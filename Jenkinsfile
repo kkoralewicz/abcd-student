@@ -59,8 +59,8 @@ pipeline {
                     docker run --rm \
                     --name osv-scanner \
                     -v ${WORKSPACE}:/workspace:rw \
-                    ghcr.io/google/osv-scanner \
-                    ls -la
+                    -t ghcr.io/google/osv-scanner bash -c \
+                    "pwd ; ls -la"
                         || true
                 '''
             }
