@@ -58,7 +58,7 @@ pipeline {
                     docker run --name osv-scanner \
                     -v /root/ABCD-kk/abcd-student:/workspace:rw \
                     -t ghcr.io/google/osv-scanner scan --lockfile /workspace/package-lock.json \
-                    --output /workspace/osv-scan-report.html || true
+                     || true
                 '''
                 sh 'docker cp osv-scanner:/workspace/osv-scan-report.html /root/osv-scan-report.html'
             }
