@@ -56,9 +56,11 @@ pipeline {
         stage('[OSV-SCANNER] Baseline scan') {
             steps {
                 sh '''
-                    docker run --name osv-scanner \
-                        -v ${WORKSPACE}:/workspace:rw \
-                        "ls -l /workspace ; osv-scanner scan --lockfile package-lock.json"
+                    docker run --rm \
+                    --name osv-scanner \
+                    -v ${WORKSPACE}:/workspace:rw \
+                    ghcr.io/google/osv-scanner \
+                    --lockfile /workspace/package-lock.json
                         || true
                 '''
             }
