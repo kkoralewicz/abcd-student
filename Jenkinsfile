@@ -79,7 +79,8 @@ pipeline {
                     docker run --name trufflehog \
                     -v /root/ABCD-kk/abcd-student:/workspace:rw \
                     -t trufflesecurity/trufflehog git file:///workspace/. --since-commit main --only-verified --fail \
-                    --output /workspace/trufflehog-scan-report.json || true
+                    --json \
+                    > /workspace/trufflehog-scan-report.json || true
                 '''
             }
             /*post {
