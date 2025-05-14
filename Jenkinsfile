@@ -80,7 +80,7 @@ pipeline {
                     -v /root/ABCD-kk/abcd-student:/workspace:rw \
                     -t trufflesecurity/trufflehog git file:///workspace/. --since-commit main --only-verified --fail \
                     --json \
-                    > /workspace/trufflehog-scan-report.json || true
+                    > /root/trufflehog-scan-report.json || true
                 '''
             }
             /*post {
