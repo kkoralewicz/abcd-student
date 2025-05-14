@@ -79,7 +79,7 @@ pipeline {
                 sh '''
                     docker run --name osv-scanner \
                     -v /root/ABCD-kk/abcd-student:/workspace:rw \
-                    -t trufflesecurity/trufflehog git file://. --since-commit master --branch feature/example --only-verified --fail \
+                    -t trufflesecurity/trufflehog git file://. --since-commit main --only-verified --fail \
                     || true
                 '''
             }
