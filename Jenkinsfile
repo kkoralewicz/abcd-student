@@ -52,20 +52,41 @@ pipeline {
 
         
         // ZAD 2
-        stage('[OSV-SCANNER] Baseline scan') {
+        /*stage('[OSV-SCANNER] Baseline scan') {
             steps {
                 sh '''
                     docker run --name osv-scanner \
                     -v /root/ABCD-kk/abcd-student:/workspace:rw \
                     -t ghcr.io/google/osv-scanner scan --lockfile /workspace/package-lock.json \
-                     || true
+                    --output /workspace/osv-scan-report.json || true
                 '''
-                //sh 'docker cp osv-scanner:/workspace/osv-scan-report.html /root/osv-scan-report.html'
+            }
+            post {
+                always {
+                    sh '''
+                        docker cp osv-scanner:/workspace/osv-scan-report.json /root/osv-scan-report.json
+                        docker stop osv-scanner
+                        docker rm osv-scanner
+                    '''
+                }
+            }
+            }*/
+
+
+        // ZAD 3
+        stage('[TRUFFLEHOG] Scan') {
+            steps {
+                sh '''
+                    docker run --name osv-scanner \
+                    -v /root/ABCD-kk/abcd-student:/workspace:rw \
+                    -t trufflesecurity/trufflehog git file://. --since-commit master --branch feature/example --only-verified --fail \
+                    || true
+                '''
             }
             /*post {
                 always {
                     sh '''
-                        docker cp osv-scanner:/workspace/osv-scan-report.html /root/osv-scan-report.html
+                        docker cp osv-scanner:/workspace/osv-scan-report.json /root/osv-scan-report.json
                         docker stop osv-scanner
                         docker rm osv-scanner
                     '''
