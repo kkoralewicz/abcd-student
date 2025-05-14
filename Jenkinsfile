@@ -77,7 +77,7 @@ pipeline {
         stage('[TRUFFLEHOG] Scan') {
             steps {
                 sh '''
-                    docker run --name osv-scanner \
+                    docker run --name trufflehog \
                     -v /root/ABCD-kk/abcd-student:/workspace:rw \
                     -t trufflesecurity/trufflehog git file://. --since-commit main --only-verified --fail \
                     || true
