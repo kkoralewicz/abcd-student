@@ -98,15 +98,15 @@ pipeline {
             steps {
                 sh '''
                      docker run --name semgrep \
-                     -v /root/ABCD-kk/abcd-student:/workspace:rw \
-                     returntocorp/semgrep semgrep --config /workspace/semgrep-rules/scan.yml 
+                     -v /root/ABCD-kk/abcd-student:/src:rw \
+                     returntocorp/semgrep semgrep --config /src/semgrep-rules/scan.yml 
                      || true
-                ''' //--json --output /workspace/semgrep-report.json
+                ''' //--json --output /src/semgrep-report.json
             }
             /*post {
                 always {
                     sh '''
-                        docker cp semgrep:/workspace/semgrep-report.json /root/semgrep-report.json
+                        docker cp semgrep:/src/semgrep-report.json /root/semgrep-report.json
                         docker stop semgrep
                         docker rm semgrep
                     '''
