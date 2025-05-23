@@ -73,7 +73,7 @@ pipeline {
 
 
         // ZAD 3
-        stage('[TRUFFLEHOG] Scan') {
+        /*stage('[TRUFFLEHOG] Scan') {
             steps {
                 sh '''
                     docker run --name trufflehog \
@@ -82,12 +82,33 @@ pipeline {
                      || true
                 '''
             }
+            post {
+                always {
+                    sh '''
+                        docker cp trufflehog:/workspace/osv-scan-report.json /root/osv-scan-report.json
+                        docker stop trufflehog
+                        docker rm trufflehog
+                    '''
+                }
+            }*/
+
+
+            // ZAD 4
+        stage('[TRUFFLEHOG] Scan') {
+            steps {
+                sh '''
+                     docker run --name semgrep \
+                     -v /root/ABCD-kk/abcd-student:/workspace:rw \
+                     returntocorp/semgrep semgrep --config $SEMGREP_RULES  \ 
+                     || true
+                ''' //--json --output /workspace/semgrep-report.json
+            }
             /*post {
                 always {
                     sh '''
-                        docker cp osv-scanner:/workspace/osv-scan-report.json /root/osv-scan-report.json
-                        docker stop osv-scanner
-                        docker rm osv-scanner
+                        docker cp semgrep:/workspace/semgrep-report.json /root/semgrep-report.json
+                        docker stop semgrep
+                        docker rm semgrep
                     '''
                 }
             }*/
