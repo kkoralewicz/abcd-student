@@ -20,7 +20,7 @@ pipeline {
         }
 
         // ZAD 1
-        /*stage('[ZAP] Baseline passive-scan') {
+        stage('[ZAP] Baseline passive-scan') {
             steps {
                 sh 'mkdir -p results/'
                 sh '''
@@ -47,11 +47,11 @@ pipeline {
                     '''
                 }
             }
-            } */
+            } 
 
         
         // ZAD 2
-        /*stage('[OSV-SCANNER] Baseline scan') {
+        stage('[OSV-SCANNER] Baseline scan') {
             steps {
                 sh '''
                     docker run --name osv-scanner \
@@ -69,16 +69,16 @@ pipeline {
                     '''
                 }
             }
-            }*/
+            }
 
 
         // ZAD 3
-        /*stage('[TRUFFLEHOG] Scan') {
+        stage('[TRUFFLEHOG] Scan') {
             steps {
                 sh '''
                     docker run --name trufflehog \
                     -v /root/ABCD-kk/abcd-student:/workspace:rw \
-                    -t trufflesecurity/trufflehog git file:///workspace/. --since-commit main --fail \
+                    -t trufflesecurity/trufflehog git file:///workspace/. --since-commit main --fail --output /workspace/osv-scan-report.json \
                      || true
                 '''
             }
@@ -90,7 +90,7 @@ pipeline {
                         docker rm trufflehog
                     '''
                 }
-            }*/
+            }
 
 
             // ZAD 4
@@ -99,7 +99,7 @@ pipeline {
                 sh '''
                      docker run --name semgrep \
                      -v /root/ABCD-kk/abcd-student:/src:rw \
-                     returntocorp/semgrep semgrep --config /src/semgrep-rules/scan.yml --json --output /src/semgrep-report.json \
+                     returntocorp/semgrep semgrep --config /src/semgrep-rules/scan.yml --output /src/semgrep-report.json \
                      || true
                 ''' 
             }
