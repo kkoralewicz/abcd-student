@@ -99,7 +99,7 @@ pipeline {
                 sh '''
                      docker run --name semgrep \
                      -v /root/ABCD-kk/abcd-student:/workspace:rw \
-                     returntocorp/semgrep semgrep --config $SEMGREP_RULES  \ 
+                     returntocorp/semgrep semgrep --config /workspace/semgrep-rules/scan.yml  \ 
                      || true
                 ''' //--json --output /workspace/semgrep-report.json
             }
