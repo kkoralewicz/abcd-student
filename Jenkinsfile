@@ -94,16 +94,16 @@ pipeline {
 
 
             // ZAD 4
-        stage('[TRUFFLEHOG] Scan') {
+        stage('[SEMGREP] Scan') {
             steps {
                 sh '''
                      docker run --name semgrep \
                      -v /root/ABCD-kk/abcd-student:/src:rw \
-                     returntocorp/semgrep semgrep --config /src/semgrep-rules/scan.yml 
+                     returntocorp/semgrep semgrep --config /src/semgrep-rules/scan.yml --json --output /src/semgrep-report.json \
                      || true
-                ''' //--json --output /src/semgrep-report.json
+                ''' 
             }
-            /*post {
+            post {
                 always {
                     sh '''
                         docker cp semgrep:/src/semgrep-report.json /root/semgrep-report.json
@@ -111,7 +111,7 @@ pipeline {
                         docker rm semgrep
                     '''
                 }
-            }*/
+            }
             }
         }
 }
