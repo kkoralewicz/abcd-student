@@ -91,7 +91,7 @@ pipeline {
                     '''
                 }
             }
-
+        }
 
             // ZAD 4
         stage('[SEMGREP] Scan') {
