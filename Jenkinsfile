@@ -78,14 +78,14 @@ pipeline {
                 sh '''
                     docker run --name trufflehog \
                     -v /root/ABCD-kk/abcd-student:/workspace:rw \
-                    -t trufflesecurity/trufflehog git file:///workspace/. --branch main --fail --output /workspace/osv-scan-report.json \
+                    -t trufflesecurity/trufflehog git file:///workspace/. --branch main --fail --output /workspace/trufflehog-scan-report.json \
                      || true
                 '''
             }
             post {
                 always {
                     sh '''
-                        docker cp trufflehog:/workspace/osv-scan-report.json /root/osv-scan-report.json
+                        docker cp trufflehog:/workspace/trufflehog-scan-report.json /root/trufflehog-scan-report.json
                         docker stop trufflehog
                         docker rm trufflehog
                     '''
