@@ -63,7 +63,7 @@ pipeline {
             post {
                 always {
                     sh '''
-                        docker cp osv-scanner:/workspace/osv-scan-report.json /root/osv-scan-report.json
+                        docker cp abcd-lab:/workspace/osv-scan-report.json /root/osv-scan-report.json
                         docker stop osv-scanner
                         docker rm osv-scanner
                     '''
@@ -85,7 +85,7 @@ pipeline {
             post {
                 always {
                     sh '''
-                        docker cp trufflehog:/workspace/trufflehog-scan-report.json /root/trufflehog-scan-report.json
+                        docker cp abcd-lab:/workspace/trufflehog-scan-report.json /root/trufflehog-scan-report.json
                         docker stop trufflehog
                         docker rm trufflehog
                     '''
@@ -106,7 +106,7 @@ pipeline {
             post {
                 always {
                     sh '''
-                        docker cp semgrep:/src/semgrep-report.json /root/semgrep-report.json
+                        docker cp abcd-lab:/src/semgrep-report.json /root/semgrep-report.json
                         docker stop semgrep
                         docker rm semgrep
                     '''
