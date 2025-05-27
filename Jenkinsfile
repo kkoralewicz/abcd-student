@@ -78,7 +78,7 @@ pipeline {
                 sh '''
                     docker run --name trufflehog \
                     -v /root/ABCD-kk/abcd-student:/workspace:rw \
-                    -t trufflesecurity/trufflehog git file:///workspace/. --since-commit main --fail --output /workspace/osv-scan-report.json \
+                    -t trufflesecurity/trufflehog git file:///workspace/. --branch main --fail --output /workspace/osv-scan-report.json \
                      || true
                 '''
             }
