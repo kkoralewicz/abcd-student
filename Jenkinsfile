@@ -20,7 +20,7 @@ pipeline {
         }
 
         // ZAD 1
-        /*stage('[ZAP] Baseline passive-scan') {
+        stage('[ZAP] Baseline passive-scan') {
             steps {
                 sh 'mkdir -p results/'
                 sh '''
@@ -69,7 +69,7 @@ pipeline {
                     '''
                 }
             }
-            }*/
+            }
 
 
         // ZAD 3
@@ -78,11 +78,11 @@ pipeline {
                 sh '''
                     docker run --name trufflehog \
                     -v /root/ABCD-kk/abcd-student:/workspace:rw \
-                    -t trufflesecurity/trufflehog git file:///workspace/. --branch main --fail --json \
+                    -t trufflesecurity/trufflehog git file:///workspace/. --branch main --fail --json /workspace/trufflehog-scan-report.json \
                      || true
                 '''
             }
-            /*post {
+            post {
                 always {
                     sh '''
                         docker cp abcd-lab:/workspace/trufflehog-scan-report.json /root/trufflehog-scan-report.json
@@ -90,11 +90,11 @@ pipeline {
                         docker rm trufflehog
                     '''
                 }
-            }*/
+            }
         }
 
             // ZAD 4
-        /*stage('[SEMGREP] Scan') {
+        stage('[SEMGREP] Scan') {
             steps {
                 sh '''
                      docker run --name semgrep \
@@ -112,6 +112,6 @@ pipeline {
                     '''
                 }
             }
-            }*/
+            }
         }
 }
